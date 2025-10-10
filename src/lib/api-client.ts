@@ -2,7 +2,7 @@
  * API client utilities for handling requests with retry logic and error handling
  */
 
-interface ApiResponse<T = any> {
+interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -14,7 +14,7 @@ interface ApiResponse<T = any> {
 interface RetryOptions {
   maxRetries?: number;
   retryDelay?: number;
-  retryCondition?: (error: any) => boolean;
+  retryCondition?: (error: unknown) => boolean;
 }
 
 export class ApiError extends Error {
@@ -28,7 +28,7 @@ export class ApiError extends Error {
   }
 }
 
-export async function apiRequest<T = any>(
+export async function apiRequest<T = unknown>(
   url: string,
   options: RequestInit = {},
   retryOptions: RetryOptions = {}
@@ -36,7 +36,7 @@ export async function apiRequest<T = any>(
   const {
     maxRetries = 3,
     retryDelay = 1000,
-    retryCondition = (error) => error.status >= 500
+    retryCondition = (error) => error instanceof ApiError && error.status !== undefined && error.status >= 500
   } = retryOptions;
 
   let lastError: Error;
@@ -86,7 +86,7 @@ export async function apiRequest<T = any>(
   throw lastError!;
 }
 
-export async function submitOrder(orderData: any): Promise<ApiResponse> {
+export async function submitOrder(orderData: Record<string, unknown>): Promise<ApiResponse> {
   return apiRequest('/api/submit-order', {
     method: 'POST',
     body: JSON.stringify(orderData),
@@ -95,7 +95,10 @@ export async function submitOrder(orderData: any): Promise<ApiResponse> {
     retryDelay: 1000,
     retryCondition: (error) => {
       // Retry on server errors but not on client errors
-      return error.status >= 500 || error.name === 'TypeError'; // Network errors
+      if (error instanceof ApiError && error.status !== undefined) {
+        return error.status >= 500;
+      }
+      return error instanceof TypeError; // Network errors
     }
   });
 }

@@ -50,7 +50,6 @@ function CheckoutForm({
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [clientSecret, setClientSecret] = useState<string>("")
-  const [paymentIntentId, setPaymentIntentId] = useState<string>("")
 
   // Create payment intent when component mounts
   useEffect(() => {
@@ -85,7 +84,6 @@ function CheckoutForm({
 
         const data = await response.json()
         setClientSecret(data.clientSecret)
-        setPaymentIntentId(data.paymentIntentId)
       } catch (error) {
         console.error('Error creating payment intent:', error)
         onPaymentError('Failed to initialize payment. Please try again.')

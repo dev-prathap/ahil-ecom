@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import StripeService from '@/lib/stripe';
-import { createGoogleSheetsService } from '@/lib/google-sheets';
 import Stripe from 'stripe';
 
 export async function POST(request: NextRequest) {

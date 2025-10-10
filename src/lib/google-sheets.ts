@@ -1,4 +1,4 @@
-import { google } from 'googleapis';
+import { google, sheets_v4 } from 'googleapis';
 import { OrderFormData } from './validations';
 import { SelectedProduct } from '@/types';
 
@@ -11,8 +11,14 @@ interface GoogleSheetsConfig {
   spreadsheetId: string;
 }
 
+type GoogleApiError = Error & { code?: number; status?: number };
+
+const isGoogleApiError = (error: unknown): error is GoogleApiError => {
+  return typeof error === 'object' && error !== null && ('code' in error || 'status' in error);
+};
+
 class GoogleSheetsService {
-  private sheets: any;
+  private sheets!: sheets_v4.Sheets;
   private config: GoogleSheetsConfig;
 
   constructor(config: GoogleSheetsConfig) {
@@ -30,7 +36,13 @@ class GoogleSheetsService {
     this.sheets = google.sheets({ version: 'v4', auth });
   }
 
-  async appendOrderToSheet(orderData: OrderFormData, selectedProducts: SelectedProduct[], total: number, paymentStatus: string = 'pending', paymentIntentId?: string) {
+  async appendOrderToSheet(
+    orderData: OrderFormData,
+    selectedProducts: SelectedProduct[],
+    total: number,
+    paymentStatus: string = 'pending',
+    paymentIntentId?: string
+  ): Promise<sheets_v4.Schema$AppendValuesResponse | null | undefined> {
     try {
       console.log('Google Sheets: Preparing to save order:', {
         paymentStatus,
@@ -90,20 +102,19 @@ class GoogleSheetsService {
 
       const response = await this.sheets.spreadsheets.values.append(request);
       return response.data;
-    } catch (error: any) {
-      console.error('Error appending to Google Sheets:', error);
+    } catch (error: unknown) {
+      const details = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Error appending to Google Sheets:', details);
       
-      // Check if it's a permission error
-      if (error?.code === 403 || error?.status === 403) {
+      if (isGoogleApiError(error) && (error.code === 403 || error.status === 403)) {
         throw new Error('The caller does not have permission');
       }
       
-      // Check for other common Google Sheets API errors
-      if (error?.code === 404) {
+      if (isGoogleApiError(error) && error.code === 404) {
         throw new Error('Spreadsheet not found - check GOOGLE_SHEETS_SPREADSHEET_ID');
       }
       
-      if (error?.code === 401) {
+      if (isGoogleApiError(error) && error.code === 401) {
         throw new Error('Authentication failed - check service account credentials');
       }
       
@@ -144,7 +155,8 @@ class GoogleSheetsService {
       // Format the header row (bold, background color)
       await this.formatHeaderRow();
     } catch (error) {
-      console.error('Error creating header row:', error);
+      const details = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Error creating header row:', details);
       throw new Error('Failed to create header row');
     }
   }
@@ -201,7 +213,8 @@ class GoogleSheetsService {
 
       await this.sheets.spreadsheets.batchUpdate(formatRequest);
     } catch (error) {
-      console.error('Error formatting header row:', error);
+      const details = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Error formatting header row:', details);
       // Don't throw error for formatting issues
     }
   }
@@ -218,7 +231,7 @@ class GoogleSheetsService {
       if (!response.data.values || !response.data.values[0] || !response.data.values[0][0]) {
         await this.createHeaderRow();
       }
-    } catch (error) {
+    } catch {
       // If sheet doesn't exist or other error, try to create headers
       console.log('Creating headers for new sheet...');
       await this.createHeaderRow();
