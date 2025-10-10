@@ -33,6 +33,14 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Google service account files
+*.json
+ahile-*.json
+*service-account*.json
+
+# Test files
+test-sheets.js
+
 # vercel
 .vercel
 
