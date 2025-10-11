@@ -1,4 +1,4 @@
-# Ahil Diwali Specials - Order Form
+# Ahile Diwali Specials - Order Form
 
 A beautiful, responsive web application for ordering traditional Indian sweets and savories for Diwali celebrations. Built with Next.js 14, TypeScript, and integrated with Google Sheets for order management.
 
@@ -144,14 +144,14 @@ Orders are automatically saved to Google Sheets with:
 
 ## 📞 Contact Information
 
-**Ahil Foods**
+**Ahile Foods**
 - Phone: (214) 223-7740
 - Phone: (615) 543-4268
 - Specializing in traditional Indian sweets and savories
 
 ## 🤝 Contributing
 
-This is a custom order form for Ahil Foods. For modifications or improvements:
+This is a custom order form for Ahile Foods. For modifications or improvements:
 
 1. Fork the repository
 2. Create a feature branch
@@ -161,7 +161,7 @@ This is a custom order form for Ahil Foods. For modifications or improvements:
 
 ## 📄 License
 
-This project is proprietary software created for Ahil Foods.
+This project is proprietary software created for Ahile Foods.
 
 ## 🙏 Acknowledgments
 

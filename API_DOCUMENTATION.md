@@ -1,10 +1,12 @@
 # API Documentation
 
+> Backend services engineered by **SWIX (Sidewayssix)** for Ahile Foods.
+
 ## Submit Order Endpoint
 
 ### POST `/api/submit-order`
 
-Submits a new order to the system and saves it to Google Sheets.
+Submits a new order to the system and saves it to Google Sheets via the SWIX (Sidewayssix) integration layer.
 
 #### Request Body
 

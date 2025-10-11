@@ -66,7 +66,7 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground">Family-crafted sweets and savories made every morning.</p>
               </div>
               <div className="space-y-1">
-                <span className="badge-pill">Multiple Pickup Slots</span>
+                <span className="badge-pill">Convenient Pickup Slots</span>
                 <p className="text-2xl font-serif font-semibold festive-text-maroon">Flexible Scheduling</p>
                 <p className="text-sm text-muted-foreground">Choose your preferred pickup date while checking out.</p>
               </div>
@@ -106,7 +106,7 @@ export default function Home() {
 
           <footer className="glass-panel accent-ring rounded-3xl px-6 py-8 flex flex-col items-center gap-4 text-center">
             <div className="flex flex-col sm:flex-row items-center gap-3 text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">© 2025 Ahil Foods • Handcrafted for Diwali</span>
+              <span className="font-medium text-foreground">© 2025 Ahile Foods • Handcrafted for Diwali</span>
               <span className="hidden sm:block w-1 h-1 rounded-full bg-amber-300" />
               <div className="flex flex-col sm:flex-row gap-3">
                 <a href="tel:+12142237740" className="hover:text-amber-600 transition-colors">📞 (214) 223-7740</a>
@@ -116,6 +116,9 @@ export default function Home() {
             </div>
             <p className="text-xs text-muted-foreground max-w-xl">
               Celebrate prosperity with authentic Indian sweets and savories crafted in small batches using premium ingredients and time-honored techniques.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Crafted with passion by <a href="https://sidewayssix.com/" target="_blank" rel="noopener noreferrer" className="font-medium text-foreground hover:text-amber-600 transition-colors">SWIX (Sidewayssix)</a>
             </p>
           </footer>
         </div>

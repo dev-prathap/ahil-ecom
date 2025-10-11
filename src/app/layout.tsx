@@ -14,31 +14,32 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Ahil Diwali Specials - Order Form",
-  description: "Order traditional Indian sweets and savories for Diwali celebrations. Handcrafted with love by Ahil Foods.",
-  keywords: ["Diwali", "Indian sweets", "savories", "order form", "Ahil Foods", "traditional", "handcrafted"],
-  authors: [{ name: "Ahil Foods" }],
-  creator: "Ahil Foods",
-  publisher: "Ahil Foods",
+  title: "Ahile Diwali Specials - Order Form",
+  description: "Order traditional Indian sweets and savories for Diwali celebrations. Handcrafted with love by Ahile Foods.",
+  keywords: ["Diwali", "Indian sweets", "savories", "order form", "Ahile Foods", "traditional", "handcrafted"],
+  authors: [{ name: "Ahile Foods" }],
+  creator: "Ahile Foods & SWIX (Sidewayssix)",
+  publisher: "Ahile Foods in partnership with SWIX (Sidewayssix)",
   openGraph: {
-    title: "Ahil Diwali Specials - Order Form",
-    description: "Order traditional Indian sweets and savories for Diwali celebrations",
+    title: "Ahile Diwali Specials • Crafted with SWIX (Sidewayssix)",
+    description: "Premium Diwali sweets and savories by Ahile Foods with a digital storefront engineered by SWIX (Sidewayssix).",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ahil Diwali Specials - Order Form",
-    description: "Order traditional Indian sweets and savories for Diwali celebrations",
+    title: "Ahile Diwali Specials × SWIX (Sidewayssix)",
+    description: "Shop handcrafted Diwali treats online, designed by SWIX (Sidewayssix).",
   },
   robots: {
     index: true,
     follow: true,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

@@ -16,7 +16,7 @@ export const products: Product[] = [
     category: "sweets", 
     quantity: "10 pcs",
     price: 15,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.34.29.jpeg"
+    image: "/products/Mysorepak.jpeg"
   },
   {
     id: "badusha",
@@ -24,7 +24,7 @@ export const products: Product[] = [
     category: "sweets",
     quantity: "10 pcs", 
     price: 14,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.34.45.jpeg"
+    image: "/products/badusha.png"
   },
   {
     id: "coconut-laddu",
@@ -32,7 +32,7 @@ export const products: Product[] = [
     category: "sweets",
     quantity: "10 pcs",
     price: 13,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.35.07.jpeg"
+    image: "/products/coconet.png"
   },
   {
     id: "boondi-laddu",
@@ -40,7 +40,7 @@ export const products: Product[] = [
     category: "sweets",
     quantity: "10 pcs",
     price: 13,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.35.25.jpeg"
+    image: "/products/BoondiLaddu.jpeg"
   },
   {
     id: "gulab-jamun",
@@ -48,7 +48,7 @@ export const products: Product[] = [
     category: "sweets",
     quantity: "10 pcs",
     price: 12,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.35.52.jpeg"
+    image: "/products/dryjamun.png"
   },
   {
     id: "dates-nuts-rolls",
@@ -56,7 +56,7 @@ export const products: Product[] = [
     category: "sweets",
     quantity: "10 pcs",
     price: 15,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.36.06.jpeg"
+    image: "/products/Dates.png"
   },
   {
     id: "thirunelveli-halwa",
@@ -72,7 +72,7 @@ export const products: Product[] = [
     category: "sweets",
     quantity: "10 pcs",
     price: 9,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.36.41.jpeg"
+    image: "/products/Ravaladdu.png"
   },
   
   // Savories
@@ -82,7 +82,7 @@ export const products: Product[] = [
     category: "savories",
     quantity: "1 kg",
     price: 20,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.37.38.jpeg"
+    image: "/products/Ribbon Pakoda.jpeg"
   },
   {
     id: "tamilnadu-mixture",
@@ -90,7 +90,7 @@ export const products: Product[] = [
     category: "savories",
     quantity: "1 kg",
     price: 18,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.38.01.jpeg"
+    image: "/products/Tamilnadu Mixture.png"
   },
   {
     id: "kara-boondi",
@@ -98,7 +98,7 @@ export const products: Product[] = [
     category: "savories",
     quantity: "1 kg",
     price: 18,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.38.38.jpeg"
+    image: "/products/Kaarabonthi.png"
   },
   {
     id: "thenkuzhal",
@@ -106,7 +106,7 @@ export const products: Product[] = [
     category: "savories",
     quantity: "15 pcs",
     price: 18,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.34.29.jpeg"
+    image: "/products/Thenkuzhal.jpeg"
   },
   {
     id: "kara-sev",
@@ -124,7 +124,7 @@ export const products: Product[] = [
     category: "giftbox",
     quantity: "Gift Box",
     price: 29.99,
-    image: "/products/athirasam.jpeg",
+    image: "/products/gift1.png",
     description: "Ghee Athirasam, Mysore Pak, Rava Laddu (150 gms) • Tamilnadu Mixture, Ribbon Pakoda (250 gms)"
   },
   {
@@ -133,7 +133,7 @@ export const products: Product[] = [
     category: "giftbox",
     quantity: "Gift Box",
     price: 19.99,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.35.25.jpeg",
+    image: "/products/gift2.png",
     description: "Boondi Laddu (3 pcs) • Rava Laddu (3 pcs) • Coconut Laddu (3 pcs) • Thirunelveli Halwa (3 pcs)"
   },
   {
@@ -142,7 +142,7 @@ export const products: Product[] = [
     category: "giftbox",
     quantity: "Gift Box",
     price: 24.99,
-    image: "/products/WhatsApp Image 2025-10-10 at 23.34.45.jpeg",
+    image: "/products/gift3.png",
     description: "Badusha (4 pcs) • Dates N' nuts Rolls (4 pcs) • Badam Peda (4 pcs) • Dry Jamoon (4 pcs)"
   }
 ]

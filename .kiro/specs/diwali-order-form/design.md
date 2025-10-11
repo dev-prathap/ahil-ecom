@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Ahil Diwali Specials Order Form is a Next.js 14 application using the App Router architecture, designed as a single-page application with a mobile-first approach. The system integrates with Google Sheets API for order storage and uses modern React patterns with TypeScript for type safety. The design emphasizes performance, accessibility, and a premium festive user experience.
+The Ahile Diwali Specials Order Form is a Next.js 14 application using the App Router architecture, designed as a single-page application with a mobile-first approach. The system integrates with Google Sheets API for order storage and uses modern React patterns with TypeScript for type safety. The design emphasizes performance, accessibility, and a premium festive user experience.
 
 ## Architecture
 

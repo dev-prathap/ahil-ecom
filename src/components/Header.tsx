@@ -36,7 +36,7 @@ export function Header() {
           <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28">
             <Image
               src="/logo-removebg-preview.png"
-              alt="Ahil Foods Logo"
+              alt="Ahile Foods Logo"
               fill
               className="object-contain drop-shadow-md"
               priority
@@ -50,7 +50,7 @@ export function Header() {
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          🪔 Ahil Diwali Specials 🪔
+          🪔 Ahile Diwali Specials 🪔
         </motion.h1>
 
         <div className="festive-divider w-36 md:w-48 mx-auto" />

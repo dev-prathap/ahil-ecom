@@ -94,7 +94,7 @@
 ## 🎯 Business Requirements
 
 ### Branding
-- [ ] "Ahil Diwali Specials" prominently displayed
+- [ ] "Ahile Diwali Specials" prominently displayed
 - [ ] Contact information in footer
 - [ ] Festive theme throughout
 - [ ] Consistent brand colors
