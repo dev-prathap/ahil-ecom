@@ -106,12 +106,12 @@ export default function Home() {
 
           <footer className="glass-panel accent-ring rounded-3xl px-6 py-8 flex flex-col items-center gap-4 text-center">
             <div className="flex flex-col sm:flex-row items-center gap-3 text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">© 2025 Ahile Foods • Handcrafted for Diwali</span>
+              <span className="font-medium text-foreground">© 2025 Ahil Foods • Handcrafted for Diwali</span>
               <span className="hidden sm:block w-1 h-1 rounded-full bg-amber-300" />
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href="tel:+12142237740" className="hover:text-amber-600 transition-colors">📞 (214) 223-7740</a>
+                <a href="tel:+19459541827" className="hover:text-amber-600 transition-colors">📞 +1 (945) 954-1827</a>
                 <span className="hidden sm:block w-1 h-1 rounded-full bg-amber-300" />
-                <a href="tel:+16155434268" className="hover:text-amber-600 transition-colors">📞 (615) 543-4268</a>
+                <a href="tel:+12142237740" className="hover:text-amber-600 transition-colors">📞 2142237740</a>
               </div>
             </div>
             <p className="text-xs text-muted-foreground max-w-xl">

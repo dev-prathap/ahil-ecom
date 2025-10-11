@@ -1,4 +1,4 @@
-# Production Setup - Ahile Diwali Specials
+# Production Setup - Ahil Diwali Specials
 
 ## 🚀 Ready for Deployment!
 
@@ -8,7 +8,7 @@ Your Diwali Order Form is now fully configured and ready for production deployme
 
 ### Google Sheets Integration
 - **Service Account**: `ahilediwali@ahile-474718.iam.gserviceaccount.com`
-- **Spreadsheet**: [Ahile Diwali Orders](https://docs.google.com/spreadsheets/d/1-QhEoP4F7bjNiAKclTi_9s0K6fuWXbLQ83hJOkG2lp8/edit?gid=0#gid=0)
+- **Spreadsheet**: [Ahil Diwali Orders](https://docs.google.com/spreadsheets/d/1-QhEoP4F7bjNiAKclTi_9s0K6fuWXbLQ83hJOkG2lp8/edit?gid=0#gid=0)
 - **Environment Variables**: Configured in `.env.local`
 
 ### Application Features
@@ -113,9 +113,9 @@ Your orders will be saved with these columns:
 ## 🎯 Business Information
 
 ### Contact Details
-- **Phone 1**: (214) 223-7740
-- **Phone 2**: (615) 543-4268
-- **Business**: Ahile Foods
+- **Phone 1**: +1 (945) 954-1827
+- **Phone 2**: 214-223-7740
+- **Business**: Ahil Foods
 - **Speciality**: Traditional Indian sweets and savories
 
 ### Product Catalog
@@ -154,7 +154,7 @@ Your orders will be saved with these columns:
 
 ## 🎉 You're Ready!
 
-Your Ahile Diwali Specials Order Form is now complete and ready to serve customers! The application will automatically save all orders to your Google Sheet, making order management seamless.
+Your Ahil Diwali Specials Order Form is now complete and ready to serve customers! The application will automatically save all orders to your Google Sheet, making order management seamless.
 
 **Happy Diwali! 🪔✨**
 

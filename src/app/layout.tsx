@@ -14,21 +14,20 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Ahile Diwali Specials - Order Form",
-  description: "Order traditional Indian sweets and savories for Diwali celebrations. Handcrafted with love by Ahile Foods.",
-  keywords: ["Diwali", "Indian sweets", "savories", "order form", "Ahile Foods", "traditional", "handcrafted"],
-  authors: [{ name: "Ahile Foods" }],
-  creator: "Ahile Foods & SWIX (Sidewayssix)",
-  publisher: "Ahile Foods in partnership with SWIX (Sidewayssix)",
+  title: "Ahil Diwali Specials - Order Form | SWIX (Sidewayssix)",
+  description: "Order traditional Indian sweets and savories for Diwali. Crafted by Ahil Foods with digital experience by SWIX (Sidewayssix).",
+  keywords: ["Diwali", "Indian sweets", "savories", "order form", "Ahil Foods", "SWIX", "Sidewayssix", "traditional", "handcrafted"],
+  authors: [{ name: "Ahil Foods" }],
+  creator: "Ahil Foods & SWIX (Sidewayssix)",
+  publisher: "Ahil Foods in partnership with SWIX (Sidewayssix)",
   openGraph: {
-    title: "Ahile Diwali Specials • Crafted with SWIX (Sidewayssix)",
-    description: "Premium Diwali sweets and savories by Ahile Foods with a digital storefront engineered by SWIX (Sidewayssix).",
+    title: "Ahil Diwali Specials • Crafted with SWIX (Sidewayssix)",
+    description: "Premium Diwali sweets and savories by Ahil Foods with a digital storefront engineered by SWIX (Sidewayssix).",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ahile Diwali Specials × SWIX (Sidewayssix)",
     description: "Shop handcrafted Diwali treats online, designed by SWIX (Sidewayssix).",
   },
   robots: {

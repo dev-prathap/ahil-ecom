@@ -1,6 +1,6 @@
 # API Documentation
 
-> Backend services engineered by **SWIX (Sidewayssix)** for Ahile Foods.
+> Backend services engineered by **SWIX (Sidewayssix)** for Ahil Foods.
 
 ## Submit Order Endpoint
 

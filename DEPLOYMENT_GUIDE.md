@@ -1,4 +1,4 @@
-# Deployment Guide - Ahile Diwali Specials Order Form
+# Deployment Guide - Ahil Diwali Specials Order Form
 
 This guide will help you deploy the Diwali Order Form to Vercel.
 
@@ -16,21 +16,20 @@ This guide will help you deploy the Diwali Order Form to Vercel.
 4. Vercel will automatically detect it's a Next.js project
 
 ## Step 2: Configure Environment Variables
-
 In the Vercel project settings, add these environment variables:
 
 ### Required Variables:
 - `GOOGLE_SHEETS_PRIVATE_KEY`: Your service account private key
 - `GOOGLE_SHEETS_CLIENT_EMAIL`: Your service account email
-- `GOOGLE_SHEETS_SPREADSHEET_ID`: Your Google Sheet ID
+- `GOOGLE_SHEETS_SPREADSHEET_ID`:
 
-### Ahile Foods Specific Values:
+### Ahil Specific Values:
 - `GOOGLE_SHEETS_CLIENT_EMAIL`: `ahilediwali@ahile-474718.iam.gserviceaccount.com`
 - `GOOGLE_SHEETS_SPREADSHEET_ID`: `1-QhEoP4F7bjNiAKclTi_9s0K6fuWXbLQ83hJOkG2lp8`
 - `GOOGLE_SHEETS_PRIVATE_KEY`: (Use the full private key from the JSON file)
 
 ### Setting Environment Variables:
-1. Go to your project dashboard on Vercel
+{{ ... }}
 2. Click "Settings" tab
 3. Click "Environment Variables" in the sidebar
 4. Add each variable:

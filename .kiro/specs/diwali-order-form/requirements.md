@@ -73,9 +73,9 @@ The Ahil Diwali Specials Order Form is a responsive web application that allows 
 
 #### Acceptance Criteria
 
-1. WHEN the user views the website THEN the system SHALL display "Ahile Diwali Specials" branding prominently
-2. WHEN the user scrolls to the footer THEN the system SHALL display "© 2025 Ahile Foods | Contact: (214) 223-7740 | (615) 543-4268"
-3. WHEN the user views the design THEN the system SHALL incorporate festive border elements similar to the Ahile Diwali Specials poster
+1. WHEN the user views the website THEN the system SHALL display "Ahil Diwali Specials" branding prominently
+2. WHEN the user scrolls to the footer THEN the system SHALL display "© 2025 Ahil Foods | Contact: +1 (945) 954-1827 | 2142237740"
+3. WHEN the user views the design THEN the system SHALL incorporate festive border elements similar to the Ahil Diwali Specials poster
 4. WHEN the user interacts with the site THEN the system SHALL maintain consistent branding throughout the experience
 
 ### Requirement 7

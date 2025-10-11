@@ -106,7 +106,7 @@ export const products: Product[] = [
     category: "savories",
     quantity: "15 pcs",
     price: 18,
-    image: "/products/Thenkuzhal.jpeg"
+    image: "/products/thenkuzhal2.jpeg"
   },
   {
     id: "kara-sev",

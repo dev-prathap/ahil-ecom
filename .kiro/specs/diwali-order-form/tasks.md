@@ -10,7 +10,7 @@
 - [x] 2. Create product data models and core UI components
   - Define TypeScript interfaces for Product, SelectedProduct, and OrderData
   - Create Shadcn/UI base components (Button, Input, Checkbox, Select, DatePicker)
-  - Implement Header component with Ahile Diwali Specials branding
+  - Implement Header component with Ahil Diwali Specials branding
   - Set up product data array with all sweets and savories from the menu
   - _Requirements: 1.1, 1.2, 6.1, 6.3_
 
