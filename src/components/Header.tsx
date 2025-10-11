@@ -70,7 +70,6 @@ export function Header() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <span className="badge-pill">Family Owned</span>
           <span className="badge-pill">Premium Ingredients</span>
           <span className="badge-pill">Diwali Exclusive Menu</span>
         </motion.div>
