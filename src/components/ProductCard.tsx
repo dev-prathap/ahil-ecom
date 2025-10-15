@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -11,17 +11,54 @@ import { ProductCardProps } from "@/types"
 export function ProductCard({ product, isSelected, quantity, onSelect }: ProductCardProps) {
   const [imageLoading, setImageLoading] = useState(true)
   const [imageError, setImageError] = useState(false)
+  const [inputValue, setInputValue] = useState(quantity.toString())
+
+  // Sync input value when quantity changes from outside
+  useEffect(() => {
+    setInputValue(quantity.toString())
+  }, [quantity])
 
   const handleCheckboxChange = (checked: boolean) => {
     onSelect(checked, checked ? 1 : 0)
+    if (checked) {
+      setInputValue('1')
+    }
   }
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    const newQuantity = parseInt(value) || 1
+    
+    // Allow empty input or any digits
+    setInputValue(value)
+    
+    // Don't update parent if empty or 0
+    if (value === '' || value === '0') {
+      return
+    }
+    
+    const newQuantity = parseInt(value)
+    if (isNaN(newQuantity)) {
+      return
+    }
+    
     // Allow any positive number up to 999
     const limitedQuantity = Math.min(Math.max(newQuantity, 1), 999)
     onSelect(true, limitedQuantity)
+  }
+
+  const handleQuantityBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    const newQuantity = parseInt(value)
+    
+    // If empty or invalid, set to 1
+    if (!value || isNaN(newQuantity) || newQuantity < 1) {
+      setInputValue('1')
+      onSelect(true, 1)
+    } else {
+      // Keep the valid value user entered
+      const limitedQuantity = Math.min(Math.max(newQuantity, 1), 999)
+      setInputValue(limitedQuantity.toString())
+    }
   }
 
   const lineTotal = isSelected ? product.price * quantity : 0
@@ -118,8 +155,9 @@ export function ProductCard({ product, isSelected, quantity, onSelect }: Product
                     type="number"
                     min="1"
                     max="999"
-                    value={quantity}
+                    value={inputValue}
                     onChange={handleQuantityChange}
+                    onBlur={handleQuantityBlur}
                     className="w-20 h-8 border-amber-300 focus:ring-amber-500 text-center"
                   />
                 </motion.div>
