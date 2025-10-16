@@ -54,10 +54,19 @@ class GoogleSheetsService {
       // Ensure headers exist first
       await this.ensureHeadersExist();
 
-      // Format the products list for better readability
+      // Format the products list for better readability with line breaks
       const productsString = selectedProducts
-        .map(item => `${item.product.name} (Pack: ${item.product.quantity}) × ${item.quantity} = $${item.lineTotal.toFixed(2)}`)
-        .join(' | ');
+        .map((item, index) => {
+          const num = index + 1;
+          const productName = item.product.name;
+          const packSize = item.product.quantity;
+          const qty = item.quantity;
+          const price = item.lineTotal.toFixed(2);
+          
+          // Format: "1. Gulab Jamun (10 pcs) - Qty: 3 = $36.00"
+          return `${num}. ${productName} (${packSize}) - Qty: ${qty} = $${price}`;
+        })
+        .join('\n');
 
       // Format timestamp for US format
       const timestamp = new Date();
