@@ -3,7 +3,6 @@ import { createGoogleSheetsService } from '@/lib/google-sheets';
 import { orderSchema } from '@/lib/validations';
 import { getProductById } from '@/lib/products';
 import { SelectedProduct } from '@/types';
-import StripeService from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,49 +73,12 @@ export async function POST(request: NextRequest) {
     // Generate Order ID
     const orderId = `ORDER_${Date.now()}`;
 
-    // Handle payment processing
+    // Handle payment processing - Cash only
     let paymentStatus = 'pending';
     let paymentIntentId = null;
 
-    if (orderData.paymentMethod === 'stripe') {
-      // For Stripe payments, we expect a paymentIntentId in the request
-      paymentIntentId = body.paymentIntentId;
-      
-      if (!paymentIntentId) {
-        return NextResponse.json(
-          { error: 'Payment intent ID is required for Stripe payments' },
-          { status: 400 }
-        );
-      }
-
-      try {
-        // Verify the payment intent
-        const paymentIntent = await StripeService.retrievePaymentIntent(paymentIntentId);
-        console.log('Payment verification result:', {
-          intentId: paymentIntent.id,
-          status: paymentIntent.status,
-          amount: paymentIntent.amount / 100
-        })
-        
-        if (paymentIntent.status === 'succeeded') {
-          paymentStatus = 'completed';
-        } else if (paymentIntent.status === 'requires_payment_method' || paymentIntent.status === 'requires_confirmation') {
-          paymentStatus = 'pending';
-        } else {
-          paymentStatus = 'failed';
-          return NextResponse.json(
-            { error: 'Payment was not successful' },
-            { status: 400 }
-          );
-        }
-      } catch (stripeError) {
-        console.error('Stripe verification error:', stripeError);
-        return NextResponse.json(
-          { error: 'Failed to verify payment' },
-          { status: 500 }
-        );
-      }
-    }
+    // Since we only allow cash payments, payment status is always pending
+    // until customer pays during pickup
 
     // Submit to Google Sheets
     try {
