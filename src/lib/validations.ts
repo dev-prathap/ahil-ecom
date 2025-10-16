@@ -7,8 +7,8 @@ export const orderSchema = z.object({
     if (!val || val === "") return true;
     return z.string().email().safeParse(val).success;
   }, "Invalid email format"),
-  paymentMethod: z.enum(['cash', 'stripe'], {
-    message: "Please select a payment method"
+  paymentMethod: z.enum(['cash'], {
+    message: "Cash on pickup is the only payment method available"
   }),
   pickupDate: z.date({
     message: "Please select a valid pickup date"

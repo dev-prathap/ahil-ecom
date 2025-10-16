@@ -26,7 +26,6 @@ import { orderSchema, OrderFormData } from "@/lib/validations"
 import { formatPhoneNumber } from "@/lib/form-utils"
 import { submitOrder, ApiError } from "@/lib/api-client"
 import { SelectedProduct } from "@/types"
-import { StripePayment } from "@/components/StripePayment"
 
 interface OrderFormProps {
     selectedProducts: SelectedProduct[]
@@ -36,8 +35,7 @@ interface OrderFormProps {
 
 export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null)
-    const [showStripePayment, setShowStripePayment] = useState(false)
+    const [orderSubmitted, setOrderSubmitted] = useState(false)
 
     const form = useForm<OrderFormData>({
         resolver: zodResolver(orderSchema),
@@ -45,7 +43,7 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
             name: "",
             phone: "",
             email: "",
-            paymentMethod: undefined,
+            paymentMethod: "cash",
             pickupDate: undefined,
             selectedProducts: selectedProducts.map(sp => ({
                 productId: sp.product.id,
@@ -65,49 +63,10 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
     // Watch payment method changes
     const paymentMethod = form.watch('paymentMethod')
 
-    useEffect(() => {
-        if (paymentMethod === 'stripe') {
-            // Only show Stripe payment if payment hasn't been completed yet
-            if (!paymentIntentId) {
-                setShowStripePayment(true)
-            }
-        } else {
-            setShowStripePayment(false)
-            setPaymentIntentId(null)
-        }
-    }, [paymentMethod, paymentIntentId])
-
-    const handleStripePaymentSuccess = (intentId: string) => {
-        setPaymentIntentId(intentId)
-        setShowStripePayment(false) // Hide payment component after success
-        console.log('Payment intent ID set:', intentId)
-        toast.success('Payment completed successfully! Finalizing your order...')
-
-        // Automatically submit the form once payment succeeds
-        form.handleSubmit(onSubmit)()
-    }
-
-    const handleStripePaymentError = (error: string) => {
-        console.error('Stripe payment error:', error)
-        toast.error(error)
-        setPaymentIntentId(null)
-    }
-
     const onSubmit = async (data: OrderFormData) => {
-        console.log('Form submission triggered with data:', data)
-        console.log('Current paymentIntentId:', paymentIntentId)
-
         // Check if products are selected
         if (selectedProducts.length === 0) {
             toast.error("Please select at least one product before placing your order", {
-                duration: 4000,
-            })
-            return
-        }
-
-        // For Stripe payments, check if payment is completed
-        if (data.paymentMethod === 'stripe' && !paymentIntentId) {
-            toast.error("Please complete the payment first", {
                 duration: 4000,
             })
             return
@@ -122,31 +81,21 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
             }))
         }
 
-        // Add payment intent ID for Stripe payments
-        const submitData = data.paymentMethod === 'stripe' 
-            ? { ...orderData, paymentIntentId }
-            : orderData
-
-        console.log('Submitting order data:', { 
-            ...submitData, 
-            paymentIntentId: paymentIntentId ? 'PRESENT' : 'MISSING' 
-        })
-
         setIsSubmitting(true)
         try {
             // Submit order using the API client with retry logic
-            const result = await submitOrder(submitData)
+            const result = await submitOrder(orderData)
 
             // Call the optional callback if provided
             if (onOrderSubmit) {
                 await onOrderSubmit(orderData)
             }
 
+            setOrderSubmitted(true)
             toast.success("Order received successfully! 🎉", {
                 description: `Order ID: ${result.orderId}. We'll contact you soon to confirm your order.`,
                 duration: 6000,
             })
-            form.reset()
         } catch (error) {
             console.error("Order submission error:", error)
             
@@ -183,6 +132,59 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
                             Please select products to continue with your order
                         </p>
                         <p className="text-3xl">🛍️</p>
+                    </CardContent>
+                </Card>
+            </motion.div>
+        )
+    }
+
+    if (orderSubmitted) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center p-8"
+            >
+                <Card className="festive-card">
+                    <CardContent className="p-8 space-y-6">
+                        <div className="text-6xl mb-4">🎉</div>
+                        <h3 className="text-2xl font-serif font-bold festive-text-maroon">
+                            Order Confirmed!
+                        </h3>
+                        <p className="text-muted-foreground">
+                            Your order has been received successfully. We'll contact you soon to confirm your order.
+                        </p>
+                        
+                        <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+                            <h4 className="font-semibold festive-text-maroon mb-4">📞 Contact Information</h4>
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-center gap-3">
+                                    <span className="text-2xl">📞</span>
+                                    <a href="tel:+19459541827" className="text-lg font-semibold text-foreground hover:text-amber-600 transition-colors">
+                                        +1 (945) 954-1827
+                                    </a>
+                                </div>
+                                <div className="flex items-center justify-center gap-3">
+                                    <span className="text-2xl">📞</span>
+                                    <a href="tel:+12142237740" className="text-lg font-semibold text-foreground hover:text-amber-600 transition-colors">
+                                        214-223-7740
+                                    </a>
+                                </div>
+                            </div>
+                            <p className="text-sm text-muted-foreground mt-4">
+                                Please save these numbers for easy contact during pickup.
+                            </p>
+                        </div>
+
+                        <Button 
+                            onClick={() => {
+                                setOrderSubmitted(false)
+                                form.reset()
+                            }}
+                            className="w-full"
+                        >
+                            Place Another Order
+                        </Button>
                     </CardContent>
                 </Card>
             </motion.div>
@@ -317,32 +319,49 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
                                             Payment Method
                                         </FormLabel>
                                         <FormControl>
-                                            <RadioGroup
-                                                onValueChange={field.onChange}
-                                                value={field.value}
-                                                className="grid grid-cols-1 md:grid-cols-2 gap-3"
-                                            >
-                                                <div className="group relative overflow-hidden rounded-2xl border border-amber-200/60 bg-white/70 px-4 py-4 transition-all hover:-translate-y-0.5 hover:shadow-lg">
-                                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-br from-amber-100 via-transparent to-orange-200 transition-opacity" />
-                                                    <div className="flex items-center gap-3 relative">
-                                                        <RadioGroupItem value="cash" id="cash" />
-                                                        <Label htmlFor="cash" className="flex flex-col cursor-pointer">
-                                                            <span className="font-semibold">💵 Cash on Pickup</span>
-                                                            <span className="text-xs text-muted-foreground">Settle the bill when you arrive.</span>
-                                                        </Label>
+                                            <div className="space-y-4">
+                                                <RadioGroup
+                                                    onValueChange={field.onChange}
+                                                    value={field.value}
+                                                    className="grid grid-cols-1 gap-3"
+                                                >
+                                                    <div className="group relative overflow-hidden rounded-2xl border border-amber-200/60 bg-white/70 px-4 py-4 transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                                                        <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-br from-amber-100 via-transparent to-orange-200 transition-opacity" />
+                                                        <div className="flex items-center gap-3 relative">
+                                                            <RadioGroupItem value="cash" id="cash" />
+                                                            <Label htmlFor="cash" className="flex flex-col cursor-pointer">
+                                                                <span className="font-semibold">💵 Cash on Pickup</span>
+                                                                <span className="text-xs text-muted-foreground">Settle the bill when you arrive.</span>
+                                                            </Label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="group relative overflow-hidden rounded-2xl border border-amber-200/60 bg-white/70 px-4 py-4 transition-all hover:-translate-y-0.5 hover:shadow-lg">
-                                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-br from-amber-100 via-transparent to-rose-200 transition-opacity" />
-                                                    <div className="flex items-center gap-3 relative">
-                                                        <RadioGroupItem value="stripe" id="stripe" />
-                                                        <Label htmlFor="stripe" className="flex flex-col cursor-pointer">
-                                                            <span className="font-semibold">💳 Secure Card</span>
-                                                            <span className="text-xs text-muted-foreground">Pay instantly with Stripe checkout.</span>
-                                                        </Label>
+                                                </RadioGroup>
+                                                
+                                                {/* Contact Numbers */}
+                                                <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-50/70 to-orange-50/70 border border-amber-200/60">
+                                                    <h4 className="text-sm font-semibold festive-text-maroon mb-3 flex items-center gap-2">
+                                                        <span className="text-lg">📞</span>
+                                                        Contact for Pickup
+                                                    </h4>
+                                                    <div className="space-y-2">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-amber-600">📞</span>
+                                                            <a href="tel:+19459541827" className="text-sm font-semibold text-foreground hover:text-amber-600 transition-colors">
+                                                                +1 (945) 954-1827
+                                                            </a>
+                                                        </div>
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-amber-600">📞</span>
+                                                            <a href="tel:+12142237740" className="text-sm font-semibold text-foreground hover:text-amber-600 transition-colors">
+                                                                214-223-7740
+                                                            </a>
+                                                        </div>
                                                     </div>
+                                                    <p className="text-xs text-muted-foreground mt-2">
+                                                        Save these numbers for easy contact during pickup.
+                                                    </p>
                                                 </div>
-                                            </RadioGroup>
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -374,64 +393,28 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
                                 </div>
                             </div>
 
-                            {/* Submit Button - Only show for non-Stripe payments or after Stripe payment is complete */}
-                            {(!showStripePayment || paymentIntentId) && (
-                                <Button
-                                    type="submit"
-                                    disabled={isSubmitting || selectedProducts.length === 0 || (paymentMethod === 'stripe' && !paymentIntentId)}
-                                    className="w-full cursor-pointer h-12 text-base font-semibold rounded-2xl shadow-md hover:shadow-xl transition-shadow"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Placing Order...
-                                        </>
-                                    ) : paymentMethod === 'stripe' && paymentIntentId ? (
-                                        <>
-                                            ✅ Complete Order (Payment Successful)
-                                        </>
-                                    ) : (
-                                        <>
-                                            🎉 Place Order (${total.toFixed(2)})
-                                        </>
-                                    )}
-                                </Button>
-                            )}
+                            {/* Submit Button */}
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting || selectedProducts.length === 0}
+                                className="w-full cursor-pointer h-12 text-base font-semibold rounded-2xl shadow-md hover:shadow-xl transition-shadow"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Placing Order...
+                                    </>
+                                ) : (
+                                    <>
+                                        🎉 Place Order (${total.toFixed(2)})
+                                    </>
+                                )}
+                            </Button>
                         </form>
                     </Form>
                 </CardContent>
             </Card>
 
-            {/* Stripe Payment Component */}
-            {showStripePayment && paymentMethod === 'stripe' && (
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="mt-6"
-                >
-                    {form.watch('name') && form.watch('phone') ? (
-                        <StripePayment
-                            selectedProducts={selectedProducts}
-                            total={total}
-                            customerName={form.watch('name') || ''}
-                            customerEmail={form.watch('email') || ''}
-                            customerPhone={form.watch('phone') || ''}
-                            onPaymentSuccess={handleStripePaymentSuccess}
-                            onPaymentError={handleStripePaymentError}
-                        />
-                    ) : (
-                        <Card className="glass-panel accent-ring festive-shadow">
-                            <CardContent className="p-6 text-center space-y-2">
-                                <p className="text-muted-foreground">
-                                    Please fill in your name and phone number to proceed with payment
-                                </p>
-                                <p className="text-lg">💳</p>
-                            </CardContent>
-                        </Card>
-                    )}
-                </motion.div>
-            )}
         </motion.div>
     )
 }
