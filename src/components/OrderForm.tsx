@@ -60,8 +60,7 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
         })))
     }, [selectedProducts, form])
 
-    // Watch payment method changes
-    const paymentMethod = form.watch('paymentMethod')
+    // Watch payment method changes (removed unused variable)
 
     const onSubmit = async (data: OrderFormData) => {
         // Check if products are selected
@@ -152,7 +151,7 @@ export function OrderForm({ selectedProducts, total, onOrderSubmit }: OrderFormP
                             Order Confirmed!
                         </h3>
                         <p className="text-muted-foreground">
-                            Your order has been received successfully. We'll contact you soon to confirm your order.
+                            Your order has been received successfully. We&apos;ll contact you soon to confirm your order.
                         </p>
                         
                         <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
