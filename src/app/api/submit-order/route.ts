@@ -74,8 +74,8 @@ export async function POST(request: NextRequest) {
     const orderId = `ORDER_${Date.now()}`;
 
     // Handle payment processing - Cash only
-    let paymentStatus = 'pending';
-    let paymentIntentId = null;
+    const paymentStatus = 'pending';
+    const paymentIntentId = undefined;
 
     // Since we only allow cash payments, payment status is always pending
     // until customer pays during pickup
